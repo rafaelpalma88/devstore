@@ -2,7 +2,6 @@ import { api } from '@/data/api'
 import { Product } from '@/data/types/product'
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 
 interface SearchProps {
   searchParams: {
@@ -27,12 +26,10 @@ export default async function Search({ searchParams }: SearchProps) {
   const { q: query } = searchParams
 
   if (!query) {
-    redirect('/')
+    return { redirect: '/' }
   }
 
   const products = await getProducts(query)
-
-  console.log('products', products)
 
   return (
     <div className="flex flex-col gap-4">
